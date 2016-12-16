@@ -33,79 +33,20 @@ public class RedisSocketReplicatorSSLTest extends TestCase {
 
     @Test
     public void testSsl() throws IOException {
-//        setJvmTrustStore("src/test/resources/keystore/truststore.jceks", "jceks");
-//        Replicator replicator = new RedisReplicator("127.0.0.1", 56379, Configuration.defaultSetting().setSsl(true));
-//        final AtomicInteger acc = new AtomicInteger(0);
-//        Jedis jedis = null;
-//        try {
-//            jedis = new Jedis("127.0.0.1", 6379);
-//            jedis.set("ssl", "true");
-//        } finally {
-//            jedis.close();
-//        }
-//        replicator.addRdbFilter(new RdbFilter() {
-//            @Override
-//            public boolean accept(KeyValuePair<?> kv) {
-//                return kv.getKey().equals("ssl");
-//            }
-//        });
-//        replicator.addRdbListener(new RdbListener() {
-//            @Override
-//            public void preFullSync(Replicator replicator) {
-//            }
-//
-//            @Override
-//            public void handle(Replicator replicator, KeyValuePair<?> kv) {
-//                acc.incrementAndGet();
-//            }
-//
-//            @Override
-//            public void postFullSync(Replicator replicator, long checksum) {
-//                Jedis jedis = null;
-//                try {
-//                    jedis = new Jedis("127.0.0.1", 6379);
-//                    jedis.del("ssl");
-//                } finally {
-//                    jedis.close();
-//                }
-//                try {
-//                    replicator.close();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//        replicator.addCloseListener(new CloseListener() {
-//            @Override
-//            public void handle(Replicator replicator) {
-//                System.out.println("close testSsl");
-//                assertEquals(1, acc.get());
-//            }
-//        });
-//        replicator.open();
-    }
-
-    @Test
-    public void testSsl1() throws IOException {
         setJvmTrustStore("src/test/resources/keystore/truststore.jceks", "jceks");
-        Replicator replicator = new RedisReplicator("localhost", 56379,
-                Configuration.defaultSetting().setSsl(true)
-                        .setReadTimeout(0)
-                        .setSslSocketFactory((SSLSocketFactory) SSLSocketFactory.getDefault())
-                        .setHostnameVerifier(new BasicHostnameVerifier())
-                        .setSslParameters(new SSLParameters()));
+        Replicator replicator = new RedisReplicator("127.0.0.1", 56379, Configuration.defaultSetting().setSsl(true));
         final AtomicInteger acc = new AtomicInteger(0);
         Jedis jedis = null;
         try {
             jedis = new Jedis("127.0.0.1", 6379);
-            jedis.set("ssl1", "true");
+            jedis.set("ssl", "true");
         } finally {
             jedis.close();
         }
         replicator.addRdbFilter(new RdbFilter() {
             @Override
             public boolean accept(KeyValuePair<?> kv) {
-                return kv.getKey().equals("ssl1");
+                return kv.getKey().equals("ssl");
             }
         });
         replicator.addRdbListener(new RdbListener() {
@@ -123,7 +64,7 @@ public class RedisSocketReplicatorSSLTest extends TestCase {
                 Jedis jedis = null;
                 try {
                     jedis = new Jedis("127.0.0.1", 6379);
-                    jedis.del("ssl1");
+                    jedis.del("ssl");
                 } finally {
                     jedis.close();
                 }
@@ -137,11 +78,70 @@ public class RedisSocketReplicatorSSLTest extends TestCase {
         replicator.addCloseListener(new CloseListener() {
             @Override
             public void handle(Replicator replicator) {
-                System.out.println("close testSsl1");
+                System.out.println("close testSsl");
                 assertEquals(1, acc.get());
             }
         });
         replicator.open();
+    }
+
+    @Test
+    public void testSsl1() throws IOException {
+//        setJvmTrustStore("src/test/resources/keystore/truststore.jceks", "jceks");
+//        Replicator replicator = new RedisReplicator("localhost", 56379,
+//                Configuration.defaultSetting().setSsl(true)
+//                        .setReadTimeout(0)
+//                        .setSslSocketFactory((SSLSocketFactory) SSLSocketFactory.getDefault())
+//                        .setHostnameVerifier(new BasicHostnameVerifier())
+//                        .setSslParameters(new SSLParameters()));
+//        final AtomicInteger acc = new AtomicInteger(0);
+//        Jedis jedis = null;
+//        try {
+//            jedis = new Jedis("127.0.0.1", 6379);
+//            jedis.set("ssl1", "true");
+//        } finally {
+//            jedis.close();
+//        }
+//        replicator.addRdbFilter(new RdbFilter() {
+//            @Override
+//            public boolean accept(KeyValuePair<?> kv) {
+//                return kv.getKey().equals("ssl1");
+//            }
+//        });
+//        replicator.addRdbListener(new RdbListener() {
+//            @Override
+//            public void preFullSync(Replicator replicator) {
+//            }
+//
+//            @Override
+//            public void handle(Replicator replicator, KeyValuePair<?> kv) {
+//                acc.incrementAndGet();
+//            }
+//
+//            @Override
+//            public void postFullSync(Replicator replicator, long checksum) {
+//                Jedis jedis = null;
+//                try {
+//                    jedis = new Jedis("127.0.0.1", 6379);
+//                    jedis.del("ssl1");
+//                } finally {
+//                    jedis.close();
+//                }
+//                try {
+//                    replicator.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//        replicator.addCloseListener(new CloseListener() {
+//            @Override
+//            public void handle(Replicator replicator) {
+//                System.out.println("close testSsl1");
+//                assertEquals(1, acc.get());
+//            }
+//        });
+//        replicator.open();
     }
 
     @Test
