@@ -224,6 +224,7 @@ public class AppendParser implements CommandParser<AppendParser.AppendCommand> {
 **BITOP**  
 **BITFIELD**  
 **SETBIT**  
+**SREM** **(special thanks to Adrian Yao)**  
   
 ##EOFException
   

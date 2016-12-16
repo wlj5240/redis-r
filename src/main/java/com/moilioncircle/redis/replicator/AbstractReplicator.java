@@ -231,6 +231,7 @@ public abstract class AbstractReplicator implements Replicator {
         addCommandParser(CommandName.name("BITOP"), new BitOpParser());
         addCommandParser(CommandName.name("BITFIELD"), new BitFieldParser());
         addCommandParser(CommandName.name("SETBIT"), new SetBitParser());
+        addCommandParser(CommandName.name("SREM"), new SRemParser());
     }
 
     protected void doClose() throws IOException {
