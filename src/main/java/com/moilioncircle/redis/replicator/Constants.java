@@ -104,6 +104,7 @@ public class Constants {
     public static final byte    PLUS                     = '+';
     public static final byte    MINUS                    = '-';
     public static final byte    COLON                    = ':';
+
     private Constants() {
     }
 
